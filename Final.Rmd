@@ -96,6 +96,8 @@ are important screening that help monitor heart condition.
   The first implement of the model is to predict/diagnosis heart disease for the screening visitors. 
   
   The Second implement of the model is to selected high importance predictors as screening items. For example, `chest pain type` has the most 2 important preditors in the model, as well as `serum cholesterol` and `excercise`, which should included in the screening process. On the other hand, `fast boold sugar` and `resting ECG: ST-T wave abnormality` has minor importance to the model, which can consider removing for economic package. For example, in the listed recommended screening terms of \cite{AHA}, `Blood Glucose` can be consider remove from screening, as it has little use for our model, but it may has clinical usage which is not our consideration in the projects.
+  
+# Reference
 
 \begin{thebibliography}{9}
 \bibitem{cdccardio}
@@ -111,8 +113,8 @@ USI:
 http://archive.ics.uci.edu/ml/datasets/heart+Disease
 \end{thebibliography}
 
-# Refference
 
+\newpage
 # Appendix
 
 ```{r setup, include=FALSE}
