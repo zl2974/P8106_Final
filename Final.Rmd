@@ -95,7 +95,11 @@ are important screening that help monitor heart condition.
   
   The first implement of the model is to predict/diagnosis heart disease for the screening visitors. 
   
-  The Second implement of the model is to selected high importance predictors as screening items. For example, `chest pain type` has the most 2 important preditors in the model, as well as `serum cholesterol` and `excercise`, which should included in the screening process. On the other hand, `fast boold sugar` and `resting ECG: ST-T wave abnormality` has minor importance to the model, which can consider removing for economic package. For example, in the listed recommended screening terms of \cite{AHA}, `Blood Glucose` can be consider remove from screening, as it has little use for our model, but it may has clinical usage which is not our consideration in the projects.
+  The Second implement of the model is to selected high importance predictors as screening items. For example, `chest pain type` has the most 2 important preditors in the model, as well as `serum cholesterol` and `excercise`, which should included in the screening process. Although the important score plot shows that vessels numbers are very important variables in predicting heart disease, the validity of this result is questionable because of the large missing values of vessel number in the data. Moreover, `fast boold sugar` and `resting ECG: ST-T wave abnormality` has minor importance to the model, which can consider removing for economic package. For example, in the listed recommended screening terms of \cite{AHA}, `Blood Glucose` can be consider remove from screening, as it has little use for our model, but it may has clinical usage which is not our consideration in the projects.
+  
+  From the important score plot, age(28-77)  is not a important variable in predicting the response. This indicates that heart disease may not have age preference. This result is counterintuitive since people usually think that the risk of heart disease would be increased with age. Our analysis result implies that young people also have risk of heart disease as same as old people. It is corresponding with a multi-state study that investigated 28,000 people hospitalized for heart attacks from 1995 to 2014[4]. The research claims that 30 percent of those patients were young, age 35 to 54. Therefore, it is also important for young people to take care of their heart problems.  
+  
+   One of potential limitation for the analysis result is that the raw data was created by combining 4 different location heart disease data. Further more investigation may be necessary to make sure the generalizability of heart disease result in different locations.
   
 # Reference
 
@@ -112,6 +116,9 @@ American Heart Association:Heart-Health Screenings:
 USI:
 http://archive.ics.uci.edu/ml/datasets/heart+Disease
 \end{thebibliography}
+
+[4]
+[ Twenty Year Trends and Sex Differences in Young Adults Hospitalized With Acute Myocardial Infarction](https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.118.037137)
 
 
 \newpage
