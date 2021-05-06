@@ -252,7 +252,13 @@ hrt_data  = hrt_data %>%
   ) %>% 
   relocate(diagnosis_heart_disease)
 
-skimr::skim_without_charts(hrt_data)
+skimr::skim_without_charts(hrt_data)[1:8,c(2,4,7)] %>% 
+  knitr::kable(caption = "Data Discription(Factors)",
+               col.names = c("variable","complete rate","fators count"))
+
+skimr::skim_without_charts(hrt_data)[9:14,c(2,4,11,8,13)] %>% 
+  knitr::kable(caption = "Data Discription(Numeric)",
+               col.names = c("variable","complete rate","p25","mean","p75"))
 ```
  
 
@@ -284,7 +290,10 @@ featurePlot(x=X_tr,y=Y_tr,
                           y = list(relation = "free")),
             plot = "density",
             pch = "|",
-            auto.key = list(columns = 3))
+            auto.key = list(columns = 2.5),
+            main = list(label = "Data Distribution"),
+            par.strip.text=list(cex=0.7),
+            layout = c(4,5))
 ```
 
 
