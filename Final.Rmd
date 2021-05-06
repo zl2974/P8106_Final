@@ -9,7 +9,7 @@ output: pdf_document
 
   Cardiovascular disease is the leading disease burden in U.S, according to \textit{www.cdc.com} \cite{cdccardio}, on average one person die from heart disease every 36 seconds. And 1 in 4 death is caused by cardiovascular disease. Heavy disease burden of cardiovascular disease should be manage to improve population health.
     
-  One of many important manners is screening, \textit{American Heart Association}\cite{AHA} lists important screening to help monitor heart condition, which is shown below;
+  One of many important manners is screening, \textit{American Heart Association}\cite{AHA} lists important screening to help monitor heart condition, which are shown below:
 \begin{itemize}
 \item Blood Pressure
 \item Fasting Lipoprotein Profile
@@ -17,6 +17,7 @@ output: pdf_document
 \item Blood Glucose
 \item Smoking, physical activity, diet
 \end{itemize}
+
  
   In light of aiding the screening process, we will use `Heart Disease Data Set` from UCI \cite{heartdiseasedata} to build our models and select one for applications.
 
@@ -68,7 +69,13 @@ output: pdf_document
   
 ## Model tunning
 
-  elastic net logistics regression is logistics regression which loss function is modified with L1 penalty and L2 penalty, we tune this penalty term $\lambda$ and the elastic net parameter $\alpha$ for regression model training with cross-validation.
+  Since variables in the data set were selected as important influence factors of heart disease, all of 13 variables were included in the models as predictors. Because the KNN method s applicable in any of Missing Completely At Random (MCAR), Missing At Random (MAR), and Missing Not At Random (MNAR) assumptions, the missing value would be estimated by knn method. 
+
+  In order to select best model to predictor heart disease status, this report compare the ROC value of logistic regression, MARS,KNN, LDA, QDA, SVM and tree models. These models are flexible enough to capture the underlying truth by adjusting appropriate tuning parameters.The train function was used to select the optimal tuning parameters by 5-fold cross validation for elastic net logistics regression, Mars, KNN, SVM and tree models by choosing the tuning parameter with highest ROC in ROC plot.  
+
+  For KNN, although the missing values are imputed before applying KNN model to train data, major proportion of lossing the value of peak Exercise ST Segment,Number of visible vessels may still degrade the model performance. Moreover, the heart disease training data has 691 observations. Because KNN is a distance-based algorithm, there is a high cost of calculating distance between a new point and each existing point, which might degrade the performance of the algorithm [5].
+
+  Elastic net logistics regression is logistics regression which loss function is modified with L1 penalty and L2 penalty, we tune this penalty term $\lambda$ and the elastic net parameter $\alpha$ for regression model training with cross-validation.
   
   MARS has model predictors' order and prune remaining term as parameters for tuning. Assuming that data can be well-explain with at most cubic model, we tune the order from 1-3 and leaving cross validation to choose for prune term.
   
@@ -78,7 +85,6 @@ output: pdf_document
   
   LDA and QDA do not have tuning parameters.
   
-  All parameter is tune by 5-fold cross validation and choose the one with highest ROC.
   
 
 # Result
@@ -137,10 +143,9 @@ library(doParallel)
 library(patchwork)
 library(DALEX)
 library(tidyverse)
-
 knitr::opts_chunk$set(
-  fig.height = 6,
-  fig.width = 8,
+  fig.height = 8,
+  fig.width = 10,
   message = F,
   echo = F,
   warning = F,
@@ -155,11 +160,10 @@ options(
   ggplot2.continuous.fill = "viridis",
   digits = 3
 )
-
-
 scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
+
 
 
 
