@@ -127,7 +127,7 @@ http://archive.ics.uci.edu/ml/datasets/heart+Disease
 [ Twenty Year Trends and Sex Differences in Young Adults Hospitalized With Acute Myocardial Infarction](https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.118.037137)
 
 
-\newpage
+
 # Appendix
 
 ```{r setup, include=FALSE}
@@ -145,7 +145,7 @@ library(patchwork)
 library(DALEX)
 library(tidyverse)
 knitr::opts_chunk$set(
-  fig.height = 8,
+  fig.height = 6,
   fig.width = 10,
   message = F,
   echo = F,
