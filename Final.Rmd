@@ -255,7 +255,7 @@ hrt_data  = hrt_data %>%
   relocate(diagnosis_heart_disease)
 
 skimr::skim_without_charts(hrt_data)[1:8,c(2,4,7)] %>% 
-  knitr::kable(caption = "Data Discription(Factors)",
+  knitr::kable(caption = "Fig.1 Data Discription(Factors)",
                col.names = c("variable","complete rate","fators count"))
 
 skimr::skim_without_charts(hrt_data)[9:14,c(2,4,11,8,13)] %>% 
@@ -425,7 +425,7 @@ tree_model =
 stopCluster(cl)
 
 p_tree = 
-  ggplot(tree_model,highlight = T) + labs(title = "TREE")
+  ggplot(tree_model,highlight = T) + labs(title = "Tree(1-se rule)")
 ```
 
 
@@ -489,7 +489,7 @@ svm_r =
         )
 
 stopCluster(cl)
-p_svm_r = ggplot(svm_r,highlight =T)
+p_svm_r = ggplot(svm_r,highlight =T)+labs(title = "SVM(Radial Kernal)")
 ```
 
 
@@ -508,7 +508,7 @@ svm_l =
         )
 
 stopCluster(cl)
-p_svm_l = ggplot(svm_l,highlight =T)
+p_svm_l = ggplot(svm_l,highlight =T)+labs(title = "SVM(Linear Kernal)")
 ```
 
 
@@ -521,9 +521,11 @@ p_ll = p_ll + labs(title = "Lasso Logistics Model") +
   xlim(c(0.1,1))+
   ylim(c(0.1,1))
 
-(p_logistics / p_tree) | (p_mars/p_knn) + plot_layout(guides = "collect")
+p1 = (p_logistics / p_tree) | (p_mars/p_knn) 
+p1  + plot_annotation(title = "Fig.2 Model Tuning(Part.1)")
 
-(p_boost/p_rforest) |(p_svm_l/p_svm_r) + plot_layout(guides = "collect")
+p2 = (p_boost/p_rforest) |(p_svm_l/p_svm_r) 
+p2 + plot_annotation(title = "Fig.3 Model Tuning(Part.2)")
 
 ```
 
@@ -559,7 +561,7 @@ rsmp$values %>%
   knitr::kable(caption = "Model and train data resampling performance",
                col.names = c("Model","Metric","p25","Mean","p75"))
 
-bwplot(rsmp,metric = c("ROC","Sens"))
+bwplot(rsmp,metric = c("ROC","Sens"),main = list(label = "Fig.4 Resampling Performance"))
 ```
 
 
@@ -593,7 +595,7 @@ auc = c()
 
 for (i in 1:length(model_list)){
   auc = append(auc,ROC[[i]]$auc[1])
-  plot(ROC[[i]],col = i, add = T * (i>1), legacy.axes = T * (i==1))
+  plot(ROC[[i]],col = i, add = T * (i>1), legacy.axes = T * (i==1),main = "Fig.6 Models Test Dataset Performacne")
 }
 
 
