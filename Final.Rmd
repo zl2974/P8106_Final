@@ -56,24 +56,24 @@ output: pdf_document
 
 # Exploratory Analysis
 
-  From above plot, some features are well distinguish for disease status, eg. `num_major_vessels_flouro `, `chest_pain_typeatypical angina`,`st_depression_exercise`, these variables may be statistical significant for the model.
+  From Fig.1, some features are well distinguish for disease status, eg. `num_major_vessels_flouro `, `chest_pain_typeatypical angina`,`st_depression_exercise`, these variables may be statistical significant for the model.
   
 
 # Model
 
-  As shown, there are missing values in our data. Assuming that these values are missing at random, we impute these values with `knnImpute` method. All data were center and scale before training.
+  As shown in Table.1, Table.2, there are missing values in our data. Assuming that these values are missing at random, we impute these values with `knnImpute` method. All data were center and scale before training.
 
-  To train classifiers, we choose `Elastic Net  logistics`, `MARS`, `KNN`, `LDA`, `QDA` and `TREE` models to train our data with 5-fold cross validation.
+  To train classifiers, we choose `Elastic Net  logistics`, `MARS`, `KNN`, `LDA`, `QDA` and `TREE`, `Random Forest(Bagging)`, `Boost`, `Support Vector Machine` models to train our data with 5-fold cross validation.
   
   When training, `ROC` is used as loss function for our model, as we intent to build a model with highest classification ability to predict whether a client has heart disease. 
   
 ## Model tunning
 
-  Since variables in the data set were selected as important influence factors of heart disease, all of 13 variables were included in the models as predictors. Because the KNN method s applicable in any of Missing Completely At Random (MCAR), Missing At Random (MAR), and Missing Not At Random (MNAR) assumptions, the missing value would be estimated by knn method. 
+  Since variables in the data set were selected as important influence factors of heart disease, all of 13 variables were included in the models as predictors. Because the KNN method s applicable in any of Missing Completely At Random (MCAR), Missing At Random (MAR), and Missing Not At Random (MNAR) assumptions, the missing value would be imputed by knn method. 
 
-  In order to select best model to predictor heart disease status, this report compare the ROC value of logistic regression, MARS,KNN, LDA, QDA, SVM and tree models. These models are flexible enough to capture the underlying truth by adjusting appropriate tuning parameters.The train function was used to select the optimal tuning parameters by 5-fold cross validation for elastic net logistics regression, Mars, KNN, SVM and tree models by choosing the tuning parameter with highest ROC in ROC plot.  
+  In order to select best model to predictor heart disease status, this report compares the ROC value of logistic regression, MARS,KNN, LDA, QDA, SVM and tree, random forest, boosting and support vector machine models. These models are flexible enough to capture the underlying truth by adjusting appropriate tuning parameters. The train function was used to select the optimal tuning parameters by 5-fold cross validation for elastic net logistics regression, Mars, KNN, SVM and tree models by choosing the tuning parameter with highest ROC in ROC plot.  
 
-  For KNN, although the missing values are imputed before applying KNN model to train data, major proportion of lossing the value of peak Exercise ST Segment,Number of visible vessels may still degrade the model performance. Moreover, the heart disease training data has 691 observations. Because KNN is a distance-based algorithm, there is a high cost of calculating distance between a new point and each existing point, which might degrade the performance of the algorithm [5].
+  For KNN, although the missing values are imputed before applying KNN model to train data, major proportion of lossing the value of peak Exercise ST Segment,Number of visible vessels may still degrade the model performance. Moreover, the heart disease training data has 691 observations. Because KNN is a distance-based algorithm, relies on local neighbor's distance between a new point and each existing point, which might degrade the performance of the algorithm on a global perspective[5].
 
   Elastic net logistics regression is logistics regression which loss function is modified with L1 penalty and L2 penalty, we tune this penalty term $\lambda$ and the elastic net parameter $\alpha$ for regression model training with cross-validation.
   
@@ -83,13 +83,13 @@ output: pdf_document
   
   Support Vectors Machines fit boundary on the support vectors, both linear kernal and radial kernal were consider in the model. 
   
-  Models is listed in Table.3.
+  All models are listed in Table.3.
   
   
 
 # Result
 
-  In our trained model have similar ROC peformance excepted for `TREE` and `qda`. Considering our model is used for improving screening process, we would prefer model with higher sensitivity. Considering both metrics, MARS method which has high ROC and highest mean sensitivity is chosen as our model.
+  In our trained model have similar ROC performance excepted for `TREE` and `qda`(Table.3). Considering our model is used for improving screening process, we would prefer model with higher sensitivity. Considering both metrics, MARS method which has high ROC and highest mean sensitivity is chosen as our model.
 
   In the MARS model, `chest pain type: atypical angina` has the highest importance, followed by `serum cholesterol` and `st depression excercise`. `fasting blood sugar` has second lowest importance to AUC loss in the MARS model followed by `resting ECG: ST-T wave abnormality`.
   
