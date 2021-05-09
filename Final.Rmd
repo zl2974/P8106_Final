@@ -89,6 +89,8 @@ output: pdf_document
 
 # Result
 
+  In our trained model have similar ROC peformance excepted for `TREE` and `qda`. Considering our model is used for improving screening process, we would prefer model with higher sensitivity. Considering both metrics, MARS method which has high ROC and highest mean sensitivity is chosen as our model.
+
   In the MARS model, `chest pain type: atypical angina` has the highest importance, followed by `serum cholesterol` and `st depression excercise`. `fasting blood sugar` has second lowest importance to AUC loss in the MARS model followed by `resting ECG: ST-T wave abnormality`.
   
   The models, included others not selected model is test against the test data. The test performance is similar to the train performance. Which `knn` has the highest ROC, but is similar or not significantly different from other methods except for tree, which has the poorest performance.
@@ -530,16 +532,16 @@ p_ll = p_ll + labs(title = "Lasso Logistics Model") +
 ```{r rsmp}
 model_list = 
   list(
-    logistic = logistic_model,
+    Logistic = logistic_model,
     MARS = mars_model,
-    knn = knn_model,
-    lda = lda_model,
-    qda = qda_model,
-    TREE = tree_model,
-    BOOST = boosting,
-    Random_Forest = rforest,
-    SVM_Linear = svm_l,
-    SVM_Radial = svm_r
+    KNN = knn_model,
+    LDA = lda_model,
+    QDA = qda_model,
+    Tree = tree_model,
+    Boost = boosting,
+    `Random Forest` = rforest,
+    `SVM Linear` = svm_l,
+    `SVM Radial` = svm_r
     
   )
 
@@ -548,12 +550,20 @@ rsmp = resamples(
   metric = c("ROC", "Kappa")
 )
 
-#summary(rsmp)
+rsmp$values %>% 
+  select(ends_with("ROC"),ends_with("Sens")) %>% 
+  skimr::skim_without_charts() %>% 
+  .[,c(2,8,5,10)] %>% 
+  separate(skim_variable,sep = "~",into = c("model","metric")) %>%
+  arrange(model) %>% 
+  knitr::kable(caption = "Model and train data resampling performance",
+               col.names = c("Model","Metric","p25","Mean","p75"))
 
 bwplot(rsmp,metric = c("ROC","Sens"))
 ```
 
-  In our trained model have similar ROC peformance excepted for `TREE` and `qda`. Considering our model is used for improving screening process, we would prefer model with higher sensitivity. Considering both metrics, MARS method which has high ROC and highest mean sensitivity is chosen as our model.
+
+
 
 ```{r explain_mars}
 mars = DALEX::explain(mars_model,label = "MARS",data = X_tr,y = Y_tr %>% as.numeric(),verbose = F)
@@ -586,8 +596,14 @@ for (i in 1:length(model_list)){
   plot(ROC[[i]],col = i, add = T * (i>1), legacy.axes = T * (i==1))
 }
 
+
+
 model_name = 
-  c("lasso logistic","MARS","KNN","LDA","QDA","TREE","Boost","Random_Forest","SVM Linear","SVM Radial")
+  c("Elastic Net Logistic","MARS","KNN","LDA","QDA","Tree","Boost","Random Forest","SVM Linear","SVM Radial")
+
+knitr::kable(tibble(model = model_name,
+                    ROC = auc),
+             caption = "Models and Test Dataset's AUC")
 
 legend("bottomright",
        legend = paste0(model_name,"~",round(auc,3)),col=1:length(model_list),lwd=2)
