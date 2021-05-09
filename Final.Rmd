@@ -79,11 +79,11 @@ output: pdf_document
   
   MARS has model predictors' order and prune remaining term as parameters for tuning. Assuming that data can be well-explain with at most cubic model, we tune the order from 1-3 and leaving cross validation to choose for prune term.
   
-  TREE model has tree complexity for tuning.
+  Tree model and the ensemble form of tree's family were consider in the model. For single tree model, we tune the complexity of the tree, the model was selected with "1-se" rule to have the simplest working model. Random Forest(and Bagging) ensemble trees with randomly sampling variable in each split into a final tree. Model tunes with number of predictors sampled at each split, splitting rules and minimum node size. Boosting use sequential addictive tree models and ensemble into a tree. Model tuning with number of trees and learning rates.
   
-  KNN has the number of closest neighbor as tuning parameter.
+  Support Vectors Machines fit boundary on the support vectors, both linear kernal and radial kernal were consider in the model. 
   
-  LDA and QDA do not have tuning parameters.
+  Models is listed in Table.3.
   
   
 
