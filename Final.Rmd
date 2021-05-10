@@ -292,7 +292,7 @@ featurePlot(x=X_tr,y=Y_tr,
             plot = "density",
             pch = "|",
             auto.key = list(columns = 2.5),
-            main = list(label = "Data Distribution"),
+            main = list(label = "Fig.1 Data Distribution"),
             par.strip.text=list(cex=0.7),
             layout = c(4,5))
 ```
@@ -437,10 +437,10 @@ boosting =
   train(X_tr,
         Y_tr,
         method = "gbm",
-        tuneGrid = expand.grid(n.trees = c(10,50,100,1000,5000),
+        tuneGrid = expand.grid(n.trees = c(10,50,100,5000),
                                interaction.depth = 1:4,
-                               shrinkage = c(0.01,0.05,0.5),
-                               n.minobsinnode = c(1,5,10,20)),
+                               shrinkage = c(0.01,0.05),
+                               n.minobsinnode = c(1,10,20)),
         preProcess = c("knnImpute", "center", "scale"),
         trControl = TRC,
         verbose = F
@@ -602,12 +602,13 @@ for (i in 1:length(model_list)){
 model_name = 
   c("Elastic Net Logistic","MARS","KNN","LDA","QDA","Tree","Boost","Random Forest","SVM Linear","SVM Radial")
 
-knitr::kable(tibble(model = model_name,
-                    AUC = auc),
-             caption = "Models and Test Dataset's AUC")
 
 legend("bottomright",
        legend = paste0(model_name,"~",round(auc,3)),col=1:length(model_list),lwd=2)
+
+knitr::kable(tibble(model = model_name,
+                    AUC = auc),
+             caption = "Models and Test Dataset's AUC")
 ```
 
 
