@@ -126,6 +126,9 @@ http://archive.ics.uci.edu/ml/datasets/heart+Disease
 [4]
 [ Twenty Year Trends and Sex Differences in Young Adults Hospitalized With Acute Myocardial Infarction](https://www.ahajournals.org/doi/full/10.1161/CIRCULATIONAHA.118.037137)
 
+[5]
+[KNN: Failure cases, Limitations, and Strategy to Pick the Right](https://www.google.com/search?q=r+mardown+add+weblink&oq=r+mardown+add+weblink&aqs=chrome..69i57j0i22i30l2j69i64.6566j0j15&sourceid=chrome&ie=UTF-8)  
+
 
 
 # Appendix
@@ -566,12 +569,14 @@ bwplot(rsmp,metric = c("ROC","Sens"),main = list(label = "Fig.4 Resampling Perfo
 
 
 
-```{r explain_mars}
+```{r explain_mars,results='asis'}
 mars = DALEX::explain(mars_model,label = "MARS",data = X_tr,y = Y_tr %>% as.numeric(),verbose = F)
 mars_important =  model_parts(mars)
 
 mars_int = plot(mars_important)
 
+
+cat(" \n\n Fig.5 Variable Importance of MARS \n\n")
 plot(mars_int)
 ```
   
