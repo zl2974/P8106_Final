@@ -597,7 +597,7 @@ auc = c()
 
 for (i in 1:length(model_list)){
   auc = append(auc,ROC[[i]]$auc[1])
-  plot(ROC[[i]],col = i, add = T * (i>1), legacy.axes = T * (i==1),main = "Fig.6 Models Test Dataset Performacne")
+  plot(ROC[[i]],col = i, add = T * (i>1), legacy.axes = T * (i==1),main = "Fig.5 Models Test Dataset Performacne")
 }
 
 
